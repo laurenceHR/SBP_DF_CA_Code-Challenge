@@ -1,6 +1,6 @@
 server.port: 9001
 spring:
   r2dbc:
-    url: 'r2dbc:h2:mem://./testdb'
+    url: 'r2dbc:h2:mem:///testdb'
     #username:
     #password:

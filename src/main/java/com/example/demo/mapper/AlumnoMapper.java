@@ -1,5 +1,6 @@
 package com.example.demo.mapper;
 
+import com.example.demo.entity.Alumno;
 import com.example.demo.request.AlumnoRequest;
 import com.example.demo.response.AlumnoResponse;
 import org.mapstruct.Mapper;
@@ -8,4 +9,8 @@ import org.mapstruct.Mapper;
 public interface AlumnoMapper {
 
     AlumnoResponse requestToResponse(AlumnoRequest request);
+
+    Alumno requestToEntity(AlumnoRequest request);
+
+    AlumnoResponse entityToResponse(Alumno alumno);
 }
