@@ -4,3 +4,4 @@ spring:
     url: 'r2dbc:h2:mem:///testdb'
     #username:
     #password:
+logging.level.root: DEBUG

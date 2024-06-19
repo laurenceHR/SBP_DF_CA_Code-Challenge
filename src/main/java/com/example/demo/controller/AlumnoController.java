@@ -4,6 +4,7 @@ import com.example.demo.mapper.AlumnoMapper;
 import com.example.demo.request.AlumnoRequest;
 import com.example.demo.response.AlumnoResponse;
 import com.example.demo.service.AlumnoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,9 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/alumno")
 public class AlumnoController {
@@ -29,8 +32,13 @@ public class AlumnoController {
     private AlumnoService service;
 
     @GetMapping
-    public Flux<AlumnoResponse> list() {
-        return service.listar();
+    public Flux<AlumnoResponse> list(
+            @RequestParam(name = "activo", required = false) Boolean activo) {
+        log.debug("activo: {}", activo);
+        return Optional.ofNullable(activo)
+                .filter(Boolean::booleanValue)
+                .map(a -> service.listarActivos())
+                .orElseGet(() -> service.listar());
     }
 
     @PostMapping

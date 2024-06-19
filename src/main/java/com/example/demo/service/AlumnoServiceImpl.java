@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.catalog.AlumnoEstadoCatalog;
 import com.example.demo.entity.Alumno;
 import com.example.demo.mapper.AlumnoMapper;
 import com.example.demo.repository.AlumnoRepository;
@@ -7,6 +8,7 @@ import com.example.demo.request.AlumnoRequest;
 import com.example.demo.response.AlumnoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -21,6 +23,11 @@ public class AlumnoServiceImpl implements AlumnoService {
 
     public Flux<AlumnoResponse> listar() {
         return repository.findAll().map(mapper::entityToResponse);
+    }
+
+    public Flux<AlumnoResponse> listarActivos() {
+        return repository.findByEstado(AlumnoEstadoCatalog.ACTIVO.getEstado())
+                .map(mapper::entityToResponse);
     }
 
     public Mono<AlumnoResponse> crear(AlumnoRequest request) {

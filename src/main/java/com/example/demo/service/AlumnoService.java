@@ -11,4 +11,6 @@ public interface AlumnoService {
     public Flux<AlumnoResponse> listar();
 
     Mono<AlumnoResponse> crear(AlumnoRequest request);
+
+    Flux<AlumnoResponse> listarActivos();
 }
